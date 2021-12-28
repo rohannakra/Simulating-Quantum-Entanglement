@@ -4,11 +4,22 @@
 # ## Objective - Create entanglement between two qubits
 
 # %%
-# Import libraries
-from qiskit import QuantumCircuit, assemble, Aer, execute, IBMQ, __qiskit_version__
+# qiskit imports:
+from qiskit import QuantumCircuit, assemble, Aer, execute, __qiskit_version__
+from qiskit.visualization import plot_histogram, plot_bloch_vector, plot_bloch_multivector, plot_state_qsphere
 from qiskit_textbook.tools import array_to_latex
-from qiskit.visualization import plot_histogram, plot_bloch_multivector
+from qiskit.providers.ibmq import least_busy
+from qiskit.tools import job_monitor
+
+# other imports:
 from math import sqrt, pi
+import numpy as np
+
+qasm_simulator = Aer.get_backend('qasm_simulator')
+sv_simulator = Aer.get_backend('statevector_simulator')
+unitary_simulator = Aer.get_backend('unitary_simulator')
+
+print(__qiskit_version__)
 
 # %% [markdown]
 # #### Create circuit
@@ -21,7 +32,7 @@ qc.measure_all()
 
 qobj = assemble(qc)
 
-qc.draw(output='mpl')
+qc.draw()
 
 # %% [markdown]
 # #### get the statevector
